@@ -1,9 +1,9 @@
 import { app, autoUpdater, dialog } from 'electron';
 import { platform, arch } from 'os';
 import { updateServerUrl } from '../constants';
-import App from '../app';
+import {App} from '../app';
 
-export default class UpdateEvents {
+export class UpdateEvents {
     // initialize auto update service - most be invoked only in production
     static initAutoUpdateService() {
         const platform_arch = platform() === 'win32' ? platform() : platform() + '_' + arch();

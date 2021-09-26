@@ -7,7 +7,7 @@ import { spawn } from 'child_process';
 import { resolve, join, basename } from 'path';
 import { environment } from '../../environments/environment';
 
-export default class SquirrelEvents {
+export class SquirrelEvents {
     private static isAppFirstRun = false;
 
     // app paths

@@ -4,7 +4,7 @@ import { environment } from '../environments/environment';
 import { join } from 'path';
 import { format } from 'url';
 
-export default class App {
+export class App {
     // Keep a global reference of the window object, if you don't, the window will
     // be closed automatically when the JavaScript object is garbage collected.
     static mainWindow: Electron.BrowserWindow;

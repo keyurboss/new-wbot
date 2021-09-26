@@ -6,7 +6,7 @@
 import { app, ipcMain } from 'electron';
 import { environment } from '../../environments/environment';
 
-export default class ElectronEvents {
+export class ElectronEvents {
     static bootstrapElectronEvents(): Electron.IpcMain {
         return ipcMain;
     }
