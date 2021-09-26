@@ -14,7 +14,12 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ]
       }
     }
   },
@@ -30,9 +35,11 @@
     "wbot": {
       "tags": []
     },
-    "wbot-e2e": {
-      "tags": [],
-      "implicitDependencies": ["wbot"]
+    "-apps-wbot-electron-wbot-electron": {
+      "tags": []
+    },
+    "wbot-electron": {
+      "tags": []
     }
   }
 }

@@ -9,7 +9,9 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/wbot",
             "index": "apps/wbot/src/index.html",
@@ -17,8 +19,13 @@
             "polyfills": "apps/wbot/src/polyfills.ts",
             "tsConfig": "apps/wbot/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["apps/wbot/src/favicon.ico", "apps/wbot/src/assets"],
-            "styles": ["apps/wbot/src/styles.scss"],
+            "assets": [
+              "apps/wbot/src/favicon.ico",
+              "apps/wbot/src/assets"
+            ],
+            "styles": [
+              "apps/wbot/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -80,40 +87,68 @@
               "apps/wbot/src/**/*.html"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/wbot"],
-          "options": {
-            "jestConfig": "apps/wbot/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
-    "wbot-e2e": {
-      "root": "apps/wbot-e2e",
-      "sourceRoot": "apps/wbot-e2e/src",
+    "wbot-electron": {
+      "root": "apps/wbot-electron",
+      "sourceRoot": "apps/wbot-electron/src",
       "projectType": "application",
+      "prefix": "wbot-electron",
       "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
+        "build": {
+          "builder": "nx-electron:build",
           "options": {
-            "cypressConfig": "apps/wbot-e2e/cypress.json",
-            "devServerTarget": "wbot:serve:development",
-            "tsConfig": "apps/wbot-e2e/tsconfig.json"
+            "outputPath": "dist/apps/wbot-electron",
+            "main": "apps/wbot-electron/src/main.ts",
+            "tsConfig": "apps/wbot-electron/tsconfig.app.json",
+            "assets": [
+              "apps/wbot-electron/src/assets"
+            ]
           },
           "configurations": {
             "production": {
-              "devServerTarget": "wbot:serve:production"
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/wbot-electron/src/environments/environment.ts",
+                  "with": "apps/wbot-electron/src/environments/environment.prod.ts"
+                }
+              ]
             }
+          }
+        },
+        "serve": {
+          "builder": "nx-electron:execute",
+          "options": {
+            "buildTarget": "wbot-electron:build"
+          }
+        },
+        "package": {
+          "builder": "nx-electron:package",
+          "options": {
+            "name": "wbot-electron",
+            "frontendProject": "wbot",
+            "outputPath": "dist/packages",
+            "prepackageOnly": true
+          }
+        },
+        "make": {
+          "builder": "nx-electron:make",
+          "options": {
+            "name": "wbot-electron",
+            "frontendProject": "wbot",
+            "outputPath": "dist/executables"
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": ["apps/wbot-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/wbot-electron/**/*.ts"
+            ]
           }
         }
       }
